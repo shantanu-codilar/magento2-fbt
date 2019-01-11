@@ -37,4 +37,9 @@ interface AfbtIndexInterface
      * @return $this
      */
     public function setAspIds($aspIds);
+
+    /**
+     * @return array|string|int
+     */
+    public function getData();
 }

@@ -11,14 +11,18 @@ namespace Codilar\Afbt\Helper;
 
 use Codilar\Afbt\Model\AfbtIndex;
 use Codilar\Afbt\Model\AfbtIndexFactory;
-use Codilar\Afbt\Model\Constants;
 use Codilar\Afbt\Model\ResourceModel\AfbtIndex as AfbtIndexResource;
+use Magento\Catalog\Model\Product;
+use Magento\Catalog\Model\ProductFactory;
+use Magento\Catalog\Model\ResourceModel\Product as ProductResource;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
 use Magento\Framework\Exception\AlreadyExistsException;
 use Magento\Quote\Model\ResourceModel\Quote\Item\CollectionFactory as QuoteItemCollectionFactory;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory as ProductCollectionFactory;
 use Psr\Log\LoggerInterface;
+use Magento\Catalog\Helper\ImageFactory;
+
 
 class Data extends AbstractHelper
 {
@@ -42,6 +46,18 @@ class Data extends AbstractHelper
      * @var LoggerInterface
      */
     private $logger;
+    /**
+     * @var ProductFactory
+     */
+    private $productFactory;
+    /**
+     * @var ProductResource
+     */
+    private $productResource;
+    /**
+     * @var ImageFactory
+     */
+    private $imageFactory;
 
     /**
      * Data constructor.
@@ -51,6 +67,9 @@ class Data extends AbstractHelper
      * @param AfbtIndexFactory $afbtIndexFactory
      * @param AfbtIndexResource $afbtIndexResource
      * @param LoggerInterface $logger
+     * @param ProductFactory $productFactory
+     * @param ProductResource $productResource
+     * @param ImageFactory $imageFactory
      */
     public function __construct(
         Context $context,
@@ -58,7 +77,10 @@ class Data extends AbstractHelper
         ProductCollectionFactory $productCollectionFactory,
         AfbtIndexFactory $afbtIndexFactory,
         AfbtIndexResource $afbtIndexResource,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        ProductFactory $productFactory,
+        ProductResource $productResource,
+        ImageFactory $imageFactory
     )
     {
         parent::__construct($context);
@@ -67,6 +89,9 @@ class Data extends AbstractHelper
         $this->afbtIndexFactory = $afbtIndexFactory;
         $this->afbtIndexResource = $afbtIndexResource;
         $this->logger = $logger;
+        $this->productFactory = $productFactory;
+        $this->productResource = $productResource;
+        $this->imageFactory = $imageFactory;
     }
 
     /**
@@ -126,4 +151,30 @@ class Data extends AbstractHelper
             return false;
         }
     }
+
+    /**
+     * @param $id
+     * @return \Magento\Catalog\Model\Product
+     */
+    public function getProduct($id)
+    {
+        $product = $this->productFactory->create();
+        $this->productResource->load($product, $id);
+        return $product;
+    }
+
+    /**
+     * @param Product $product
+     * @param string $imageId
+     * @return string
+     */
+    public function getProductImage($product, $imageId = "category_page_list")
+    {
+        $image = $this->imageFactory->create()->init($product, $imageId)
+            ->setImageFile($product->getFile());
+        $imageUrl = $image->getUrl();
+        return (string)$imageUrl;
+    }
+
+
 }

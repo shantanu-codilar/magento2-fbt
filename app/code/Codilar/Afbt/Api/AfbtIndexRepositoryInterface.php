@@ -9,7 +9,9 @@
 namespace Codilar\Afbt\Api;
 
 use Codilar\Afbt\Api\Data\AfbtIndexInterface;
+use Codilar\Afbt\Model\ResourceModel\AfbtIndex\Collection;
 use Magento\Framework\Api\SearchCriteriaInterface;
+use Magento\Framework\Exception\NoSuchEntityException;
 
 interface AfbtIndexRepositoryInterface 
 {
@@ -20,10 +22,12 @@ interface AfbtIndexRepositoryInterface
     public function save(AfbtIndexInterface $page);
 
     /**
-     * @param $id
+     * @param int $id
+     * @param string|null $field
      * @return AfbtIndexInterface
+     * @throws NoSuchEntityException
      */
-    public function getById($id);
+    public function getById($id, $field);
 
     /**
      * @param SearchCriteriaInterface $criteria
@@ -42,4 +46,9 @@ interface AfbtIndexRepositoryInterface
      * @return mixed
      */
     public function deleteById($id);
+
+    /**
+     * @return Collection
+     */
+    public function getCollection();
 }

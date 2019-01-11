@@ -20,6 +20,7 @@ use Magento\Framework\App\Area;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
 use Magento\Catalog\Block\Product\ImageBuilder;
+use Magento\Store\Model\StoreManagerInterface;
 
 class Product extends AbstractHelper
 {
@@ -27,130 +28,42 @@ class Product extends AbstractHelper
      * @var EavSetupFactory
      */
     private $eavSetupFactory;
-    /**
-     * @var Emulator
-     */
-    private $emulator;
+
     /**
      * @var ProductModel\ImageFactory
      */
     private $imageFactory;
+
     /**
      * @var ImageBuilder
      */
     private $imageBuilder;
+    /**
+     * @var StoreManagerInterface
+     */
+    private $storeManager;
 
     /**
      * Product constructor.
      * @param Context $context
      * @param EavSetupFactory $eavSetupFactory
-     * @param Emulator $emulator
      * @param ImageFactory $imageFactory
      * @param ImageBuilder $imageBuilder
+     * @param StoreManagerInterface $storeManager
      */
     public function __construct(
         Context $context,
         EavSetupFactory $eavSetupFactory,
-        Emulator $emulator,
         ImageFactory $imageFactory,
-        ImageBuilder $imageBuilder
+        ImageBuilder $imageBuilder,
+        StoreManagerInterface $storeManager
     )
     {
         parent::__construct($context);
         $this->eavSetupFactory = $eavSetupFactory;
-        $this->emulator = $emulator;
         $this->imageFactory = $imageFactory;
         $this->imageBuilder = $imageBuilder;
-    }
-
-    /**
-     * @param $attributeCode
-     * @param $attributeLabel
-     * @param $attributeType
-     * @param $attributeInputType
-     * @param array $attributeSets
-     * @param bool $required
-     * @param bool $visible
-     * @param int $defaultValue
-     * @param bool $searchable
-     * @param bool $filterable
-     * @param bool $comparable
-     * @param bool $visibleOnFront
-     * @param bool $usedInProductListing
-     * @param bool $unique
-     * @param int $isUsedInGrid
-     * @param int $isVisibleInGrid
-     * @param string $source
-     * @param string $backend
-     * @param string $frontend
-     * @throws \Magento\Framework\Exception\LocalizedException
-     */
-    public function createProductAttribute(
-        $attributeCode,
-        $attributeLabel,
-        $attributeType,
-        $attributeInputType,
-        $attributeSets = [],
-        $required = true,
-        $visible = true,
-        $defaultValue = 1,
-        $searchable = false,
-        $filterable = false,
-        $comparable = false,
-        $visibleOnFront = true,
-        $usedInProductListing = true,
-        $unique = false,
-        $isUsedInGrid = 1,
-        $isVisibleInGrid = 1,
-        $source = "",
-        $backend = "",
-        $frontend = ""
-    )
-    {
-        /** @var EavSetup $eavSetup */
-        $eavSetup = $this->eavSetupFactory->create();
-        $productEntity = $eavSetup->getEntityType(ProductModel::ENTITY);
-        $eavSetup->addAttribute(
-            $productEntity,
-            $attributeCode,
-            [
-                'type' => $attributeType,
-                'backend' => $backend,
-                'frontend' => $frontend,
-                'label' => $attributeLabel,
-                'input' => $attributeInputType,
-                'class' => '',
-                'source' => $source,
-                'global' => ScopedAttributeInterface::SCOPE_GLOBAL,
-                'visible' => $visible,
-                'required' => $required,
-                'user_defined' => true,
-                'default' => $defaultValue,
-                'searchable' => $searchable,
-                'filterable' => $filterable,
-                'comparable' => $comparable,
-                'visible_on_front' => $visibleOnFront,
-                'used_in_product_listing' => $usedInProductListing,
-                'unique' => $unique,
-                'apply_to' => '',
-                'is_used_in_grid' => $isUsedInGrid,
-                'is_visible_in_grid'=> $isVisibleInGrid
-            ]
-        );
-        $attributeSetIds = $attributeSets;
-        if (!$attributeSetIds) {
-            $attributeSetIds = $eavSetup->getAllAttributeSetIds($productEntity);
-        }
-        foreach ($attributeSetIds as $attributeSetId) {
-            $groupId = $eavSetup->getAttributeGroupId($productEntity, $attributeSetId, "product-details");
-            $eavSetup->addAttributeToGroup(
-                $productEntity,
-                $attributeSetId,
-                $groupId,
-                $attributeCode,
-                null
-            );
-        }
+        $this->storeManager = $storeManager;
     }
 
     /**
@@ -194,19 +107,6 @@ class Product extends AbstractHelper
         return $discount ? "<div class='product-discount'>".$discount."% Off</div>" : "";
     }
 
-    /**
-     * @param ProductModel $_product
-     * @return string
-     */
-    public function getThumbnailUrl($_product){
-        $this->emulator->startEmulation(Area::AREA_FRONTEND);
-        /** @var \Magento\Catalog\Helper\Image $image */
-        $image = $this->imageFactory->create()->init($_product, "product_thumbnail_image")
-            ->setImageFile($_product->getFile());
-        $imageUrl = $image->getUrl();
-        $this->emulator->stopEmulation();
-        return (string)$imageUrl;
-    }
 
     /**
      * @param $product
@@ -219,11 +119,63 @@ class Product extends AbstractHelper
     }
 
     /**
-     * @param $html
+     * @param \Magento\Catalog\Model\Product $product
      * @return string
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function validateAndFixHtmlTag($html) {
-        $tidy = new \tidy();
-        return $tidy->repairString($html);
+    public function getProductPriceHtml($product)
+    {
+        $currency = $this->storeManager->getStore()->getCurrentCurrencyCode();
+        $specialPrice = $product->getPriceInfo()->getPrice('final_price')->getValue();
+        $oldPrice = $product->getPriceInfo()->getPrice('regular_price')->getValue();
+        $normalPriceHtml = "<div class='price-box price-final_price' data-role='priceBox' data-product-id='".$product->getId()."'><span class='price-container price-final_price tax weee'>
+                            <span id='product-price-".$product->getId()."' data-price-amount=".$oldPrice." data-price-type='finalPrice' class='price-wrapper'>
+                            <span class='price'>".$currency. " ". $oldPrice."</span></span></span></div>";
+        $specialPriceHtml = "<div class='price-box price-final_price' data-role='priceBox' data-product-id='".$product->getId()."'>
+                            <span class='special-price'>
+                            <span class='price-container price-final_price tax weee'>
+                            <span class='price-label'>Special Price</span>
+                            <span id='product-price-".$product->getId()."' data-price-amount='".$specialPrice."' data-price-type='finalPrice' class='price-wrapper '>
+                            <span class='price'>".$currency ." ". $specialPrice."</span></span>
+                            </span>
+                            </span>
+                            <span class='old-price'>
+                            <span class='price-container price-final_price tax weee'>
+                            <span class='price-label'>Regular Price</span>
+                            <span id='old-price".$product->getId()."' data-price-amount='".$specialPrice."' data-price-type='oldPrice' class='price-wrapper '>
+                            <span class='price'>".$currency ." ". $oldPrice."</span></span>
+                            </span>
+                            </span>
+                            </div>";
+        return $specialPrice != $oldPrice?$specialPriceHtml:$normalPriceHtml;
+    }
+
+
+    /**
+     * @param \Magento\Catalog\Model\Product $product
+     * @param bool $formatted
+     * @return mixed
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    public function getPrice($product, $formatted = false)
+    {
+        $specialPrice = $product->getPriceInfo()->getPrice('final_price')->getValue();
+        $oldPrice = $product->getPriceInfo()->getPrice('regular_price')->getValue();
+        $price = $specialPrice != $oldPrice?$specialPrice:$oldPrice;
+        if ($formatted) {
+            $price = $this->storeManager->getStore()->getCurrentCurrencyCode(). " ".$price;
+        }
+        return $price;
+    }
+
+    /**
+     * @param $price
+     * @return string
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    public function getFormattedPrice($price)
+    {
+        $currency = $this->storeManager->getStore()->getCurrentCurrencyCode();
+        return $currency." ". $price;
     }
 }

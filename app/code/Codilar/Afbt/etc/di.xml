@@ -10,8 +10,8 @@
         <plugin name="product_add_to_cart_before" type="Codilar\Afbt\Plugins\Quote" sortOrder="1" />
     </type>
     <type name="Magento\Quote\Model\Quote\Item\ToOrderItem">
-        <plugin name="from_afbt_quote_item_to_order_item" type="Codilar\Afbt\Model\Plugin\Quote\QuoteToOrderItem"/>
+        <plugin name="from_afbt_quote_item_to_order_item" type="Codilar\Afbt\Plugins\QuoteToOrderItem"/>
     </type>
-    <preference for="Codilar\Afbt\Api\AfbtIndexRepositoryInterface" type="Codilar\Afbt\Model\AfbtRepository" />
+    <preference for="Codilar\Afbt\Api\AfbtIndexRepositoryInterface" type="Codilar\Afbt\Model\AfbtIndexRepository" />
     <preference for="Codilar\Afbt\Api\Data\AfbtIndexInterface" type="Codilar\Afbt\Model\AfbtIndex" />
 </config>

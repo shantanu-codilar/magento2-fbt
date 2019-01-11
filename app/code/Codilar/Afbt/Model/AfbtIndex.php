@@ -80,4 +80,14 @@ class AfbtIndex extends AbstractModel implements AfbtIndexInterface, IdentityInt
         $this->setData(self::ASP_IDS, $aspIds);
         return $this;
     }
+
+    /**
+     * @param string $key
+     * @param null $index
+     * @return array|string|int
+     */
+    public function getData($key = '', $index = null)
+    {
+        return parent::getData($key, $index);
+    }
 }

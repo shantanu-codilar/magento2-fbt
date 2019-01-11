@@ -71,13 +71,18 @@ class AfbtIndexRepository implements AfbtIndexRepositoryInterface
 
     /**
      * @param $id
+     * @param null $field
      * @return mixed
      * @throws NoSuchEntityException
      */
-    public function getById($id)
+    public function getById($id, $field = null)
     {
         $object = $this->objectFactory->create();
-        $this->objectResourceModel->load($object, $id);
+        if ($field) {
+            $this->objectResourceModel->load($object, $id, $field);
+        } else {
+            $this->objectResourceModel->load($object, $id);
+        }
         if (!$object->getId()) {
             throw new NoSuchEntityException(__('Object with id "%1" does not exist.', $id));
         }
@@ -150,5 +155,13 @@ class AfbtIndexRepository implements AfbtIndexRepositoryInterface
         }
         $searchResults->setItems($objects);
         return $searchResults;        
+    }
+
+    /**
+     * @return ObjectResourceModel\Collection
+     */
+    public function getCollection()
+    {
+        return $this->collectionFactory->create();
     }
 }
