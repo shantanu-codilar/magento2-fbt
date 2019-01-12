@@ -45,7 +45,7 @@
                                 <form name="addToCartForm" id="add_cart_<%= associatedProduct.id %>" action="" method="POST">
                                     <input type="hidden" name="product_parent" value="<%= productsData.parent_product.id %>" />
                                     <input type="hidden" name="product_associated" value="<%= associatedProduct.id %>" />
-                                    <button class="add-to-cart">
+                                    <button type="button" class="add-to-cart-fbt">
                                         Add to Cart
                                     </button>
                                 </form>

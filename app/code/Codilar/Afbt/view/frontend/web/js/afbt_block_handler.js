@@ -3,6 +3,8 @@ define(['jquery', 'underscore'], function ($, _) {
         var Afbt = {
             fetchUrl: config.afbtFetchUrl,
             parentProductId: config.product_id,
+            cartAddUrl: config.addToCartUrl,
+            form_key: config.form_key,
             init: function () {
                 var self = this;
                 self.getAssociatedProducts();
@@ -23,9 +25,31 @@ define(['jquery', 'underscore'], function ($, _) {
                                     productsData: response
                                 }));
                             });
+                            self.processAddCart();
                         } else {
                             $(".afbt-container").html("");
                         }
+                    }
+                });
+            },
+            processAddCart: function () {
+                var self = this;
+                $(document).on("click", ".add-to-cart-fbt", function () {
+                    var parentProductId = $(this).closest("form").find("[name='product_parent']").val();
+                    var associatedProductId = $(this).closest("form").find("[name='product_associated']").val();
+                    var products = [];
+                    products.push(parentProductId);
+                    products.push(associatedProductId);
+                    if (parentProductId && associatedProductId) {
+                        $.ajax({
+                            url: self.cartAddUrl+"product/"+parentProductId+"/",
+                            method: "POST",
+                            showLoader: true,
+                            data: {products: products},
+                            success: function (response) {
+                                console.log(response);
+                            }
+                        });
                     }
                 });
             }

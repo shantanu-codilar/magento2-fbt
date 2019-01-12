@@ -84,6 +84,14 @@ class AfbtHandler extends View
      */
     public function getCartAddUrl()
     {
-        return $this->getUrl("checkout/cart/add");
+        return $this->getUrl("afbt/cart/add");
+    }
+
+    /**
+     * @return string
+     */
+    public function getFormKey()
+    {
+        return $this->getBlockHtml('form_key');
     }
 }
