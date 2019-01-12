@@ -1,7 +1,7 @@
 <% if (productsData.status) { %>
     <h2 id="scroll-to">Frequently Bought Together</h2>
     <div class="fbt-container">
-        <div class="row-fbt">
+        <div class="row-fbt owl-carousel owl-theme" id="fbt-carousel-blog">
             <% productsData.associated_products.forEach(function(associatedProduct) { %>
                 <div class="column-item">
                 <div class="row-fbt container-flex-container">
