@@ -14,6 +14,7 @@ use Codilar\Afbt\Model\Config;
 use Magento\Framework\Indexer\ActionInterface;
 use Magento\Framework\Mview\ActionInterface as MViewActionInterface;
 use Magento\Quote\Model\Quote\Item;
+use Magento\Sales\Model\Order\Item as OrderItem;
 
 class Afbt implements ActionInterface, MViewActionInterface
 {
@@ -91,19 +92,19 @@ class Afbt implements ActionInterface, MViewActionInterface
             }
             foreach ($ids as $pid) {
                 /** Get Quote Ids for the pid */
-                $quoteItems = $helper->getQuoteItemCollectionFactory();
+                $quoteItems = $helper->getOrderItemCollectionFactory();
                 $quoteItems->addFieldToFilter("product_id", $pid);
-                $quoteItems->getSelect()->group("quote_id");
+                $quoteItems->getSelect()->group("order_id");
                 $quoteIds = [];
                 if ($quoteItems->getSize()) {
-                    /** @var Item $quoteItem */
+                    /** @var OrderItem $quoteItem */
                     foreach ($quoteItems as $quoteItem) {
-                        $quoteIds[] = $quoteItem->getQuoteId();
+                        $quoteIds[] = $quoteItem->getOrderId();
                     }
                 }
                 /** get quotes product ids */
-                $quoteItems = $helper->getQuoteItemCollectionFactory();
-                $quoteItems->addFieldToFilter("quote_id", ["in" => $quoteIds]);
+                $quoteItems = $helper->getOrderItemCollectionFactory();
+                $quoteItems->addFieldToFilter("order_id", ["in" => $quoteIds]);
                 $quoteProductIds = [];
                 if ($quoteItems->getSize()) {
                     foreach ($quoteItems as $quoteItem) {
