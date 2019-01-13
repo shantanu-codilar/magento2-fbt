@@ -19,7 +19,9 @@ use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
 use Magento\Framework\Exception\AlreadyExistsException;
 use Magento\Quote\Model\ResourceModel\Quote\Item\CollectionFactory as QuoteItemCollectionFactory;
+use Magento\Sales\Model\ResourceModel\Order\Item\CollectionFactory as OrderItemCollectionFactory;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory as ProductCollectionFactory;
+use Magento\Sales\Model\ResourceModel\Order\Item\Collection as OrderItemCollection;
 use Psr\Log\LoggerInterface;
 use Magento\Catalog\Helper\ImageFactory;
 
@@ -58,11 +60,16 @@ class Data extends AbstractHelper
      * @var ImageFactory
      */
     private $imageFactory;
+    /**
+     * @var OrderItemCollectionFactory
+     */
+    private $orderItemCollectionFactory;
 
     /**
      * Data constructor.
      * @param Context $context
      * @param QuoteItemCollectionFactory $quoteItemCollectionFactory
+     * @param OrderItemCollectionFactory $orderItemCollectionFactory
      * @param ProductCollectionFactory $productCollectionFactory
      * @param AfbtIndexFactory $afbtIndexFactory
      * @param AfbtIndexResource $afbtIndexResource
@@ -74,6 +81,7 @@ class Data extends AbstractHelper
     public function __construct(
         Context $context,
         QuoteItemCollectionFactory $quoteItemCollectionFactory,
+        OrderItemCollectionFactory $orderItemCollectionFactory,
         ProductCollectionFactory $productCollectionFactory,
         AfbtIndexFactory $afbtIndexFactory,
         AfbtIndexResource $afbtIndexResource,
@@ -92,6 +100,7 @@ class Data extends AbstractHelper
         $this->productFactory = $productFactory;
         $this->productResource = $productResource;
         $this->imageFactory = $imageFactory;
+        $this->orderItemCollectionFactory = $orderItemCollectionFactory;
     }
 
     /**
@@ -100,6 +109,14 @@ class Data extends AbstractHelper
     public function getQuoteItemCollectionFactory()
     {
         return $this->quoteItemCollectionFactory->create();
+    }
+
+    /**
+     * @return OrderItemCollection
+     */
+    public function getOrderItemCollectionFactory()
+    {
+        return $this->orderItemCollectionFactory->create();
     }
 
     /**
