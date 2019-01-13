@@ -1,9 +1,11 @@
 <?php
 
 /** @var $block \Codilar\Afbt\Block\AfbtHandler */
+$product = $block->getProduct();
 ?>
 
 <?php if ($block->isEnabled()): ?>
+    <?php if ($product->getTypeId() != "configurable"): ?>
     <div class="afbt-container">
         <div class="loader-block">
             <img src="<?= /* @escapeNotVerified */ $block->getViewFileUrl('images/loader-1.gif') ?>"
@@ -22,6 +24,5 @@
             }
         }
     </script>
-
-
+    <?php endif; ?>
 <?php endif; ?>
