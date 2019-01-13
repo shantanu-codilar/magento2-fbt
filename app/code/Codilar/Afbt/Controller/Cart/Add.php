@@ -39,10 +39,6 @@ class Add extends Action
      * @var JsonFactory
      */
     private $jsonFactory;
-    /**
-     * @var \Magento\Checkout\Helper\Cart
-     */
-    private $cartHelper;
 
     /**
      * Add constructor.
@@ -52,7 +48,6 @@ class Add extends Action
      * @param Product $productHelper
      * @param Data $helper
      * @param JsonFactory $jsonFactory
-     * @param \Magento\Checkout\Helper\Cart $cartHelper
      */
     public function __construct(
         Context $context,
@@ -60,8 +55,7 @@ class Add extends Action
         \Magento\Framework\Data\Form\FormKey $formKey,
         Product $productHelper,
         Data $helper,
-        JsonFactory $jsonFactory,
-        \Magento\Checkout\Helper\Cart $cartHelper
+        JsonFactory $jsonFactory
     )
     {
         $this->cart = $cart;
@@ -70,15 +64,11 @@ class Add extends Action
         $this->helper = $helper;
         $this->jsonFactory = $jsonFactory;
         parent::__construct($context);
-        $this->cartHelper = $cartHelper;
     }
 
+
     /**
-     * Execute action based on request and return result
-     *
-     * Note: Request will be added as operation argument in future
-     *
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\Result\Json|\Magento\Framework\Controller\ResultInterface
      */
     public function execute()
     {
@@ -94,8 +84,9 @@ class Add extends Action
                         "form_key" => $this->formKey->getFormKey(),
                         "from_afbt" => 1
                     ];
-                    $this->cartHelper->getCart()->addProduct($product, $requestInfo);
+                    $this->cart->addProduct($product, $requestInfo);
                 }
+                $this->cart->save();
                 $this->messageManager->addSuccessMessage(__("You added the combo in cart!"));
                 return $this->jsonFactory->create()->setData(["status" => true, "message" => __("You added the combo in cart!")]);
             } catch (LocalizedException $e) {

@@ -10,6 +10,7 @@ use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Registry;
 use Magento\Quote\Model\Quote as Subject;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
+use Magento\Quote\Model\ResourceModel\Quote\Item;
 
 class Quote{
 
@@ -17,6 +18,7 @@ class Quote{
     const ASSOCIATED_SIMPLE_PRODUCT = "_codilar_associated_simple_product";
 
     protected $configurableProductInstance;
+
     protected $productRepository;
     /**
      * @var Registry
@@ -26,6 +28,10 @@ class Quote{
      * @var RequestInterface
      */
     private $request;
+    /**
+     * @var Item
+     */
+    private $quoteItemResource;
 
     /**
      * Quote constructor.
@@ -34,18 +40,21 @@ class Quote{
      * @param ProductRepository $productRepository
      * @param Registry $registry
      * @param RequestInterface $request
+     * @param Item $quoteItemResource
      */
     public function __construct(
         Configurable $configurable,
         ProductRepository $productRepository,
         Registry $registry,
-        RequestInterface $request
+        RequestInterface $request,
+        Item $quoteItemResource
     )
     {
         $this->configurableProductInstance = $configurable;
         $this->productRepository = $productRepository;
         $this->registry = $registry;
         $this->request = $request;
+        $this->quoteItemResource = $quoteItemResource;
     }
 
     /**
@@ -96,7 +105,8 @@ class Quote{
         $data = array_key_exists(Constants::FROM_AFBT,$this->request->getParams());
         if ($data) {
             try {
-                $quoteItem->setData("from_afbt")->save();
+                $quoteItem->setData("from_afbt", 1);
+                $this->quoteItemResource->save($quoteItem);
             } catch (\Exception $e) {
             }
         }

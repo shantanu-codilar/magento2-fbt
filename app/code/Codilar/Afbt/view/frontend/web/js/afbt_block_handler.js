@@ -45,7 +45,7 @@ define(['jquery', 'underscore', 'owlCarousel'], function ($, _, owlCarousel) {
                                     }
                                 });
                                 checkClasses();
-                                carousel.on('translated.owl.carousel', function(event) {
+                                owl.on('translated.owl.carousel', function(event) {
                                     checkClasses();
                                 });
 
@@ -71,7 +71,7 @@ define(['jquery', 'underscore', 'owlCarousel'], function ($, _, owlCarousel) {
             },
             processAddCart: function () {
                 var self = this;
-                $(document).on("click", ".add-to-cart-fbt", function () {
+                $(document).on("click", ".afbt-container .action.tocart.primary.afbt", function () {
                     var parentProductId = $(this).closest("form").find("[name='product_parent']").val();
                     var associatedProductId = $(this).closest("form").find("[name='product_associated']").val();
                     var products = [];
@@ -82,7 +82,7 @@ define(['jquery', 'underscore', 'owlCarousel'], function ($, _, owlCarousel) {
                             url: self.cartAddUrl+"product/"+parentProductId+"/",
                             method: "POST",
                             showLoader: true,
-                            data: {products: products},
+                            data: {products: products, from_afbt: 1},
                             success: function (response) {
                                 console.log(response);
                             }
