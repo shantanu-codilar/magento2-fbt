@@ -31,6 +31,7 @@ class AfbtHandler extends View
 
     /**
      * AfbtHandler constructor.
+     *
      * @param Context $context
      * @param EncoderInterface $urlEncoder
      * @param JsonEncoderInterface $jsonEncoder
@@ -64,6 +65,8 @@ class AfbtHandler extends View
     }
 
     /**
+     * Check if module is enabled.
+     *
      * @return int
      */
     public function isEnabled()
@@ -72,6 +75,8 @@ class AfbtHandler extends View
     }
 
     /**
+     * Get Ajax fetch url.
+     *
      * @return string
      */
     public function getFetchUrl()
@@ -80,6 +85,8 @@ class AfbtHandler extends View
     }
 
     /**
+     * Get add to cart controller url for afbt.
+     *
      * @return string
      */
     public function getCartAddUrl()
@@ -88,6 +95,8 @@ class AfbtHandler extends View
     }
 
     /**
+     * Get form key for add to cart.
+     *
      * @return string
      */
     public function getFormKey()

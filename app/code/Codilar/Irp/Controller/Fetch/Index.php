@@ -58,6 +58,11 @@ class Index extends \Magento\Framework\App\Action\Action
         $this->productHelper = $productHelper;
     }
 
+    /**
+     * Fetch related products using JNearestNeighbour algorithm.
+     *
+     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\Result\Json|\Magento\Framework\Controller\ResultInterface
+     */
     public function execute()
     {
         if ($this->config->isEnabled()) {
@@ -111,6 +116,8 @@ class Index extends \Magento\Framework\App\Action\Action
     }
 
     /**
+     * Get no. of word match.
+     *
      * @param $source
      * @param $destination
      * @return int

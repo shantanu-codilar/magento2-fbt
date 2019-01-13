@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * @package     M2FBT
+ * @author      Codilar Technologies
+ * @license     https://opensource.org/licenses/OSL-3.0 Open Software License v. 3.0 (OSL-3.0)
+ * @link        http://www.codilar.com/
+ */
 namespace Codilar\Afbt\Plugins;
 
 use Codilar\Afbt\Model\Constants;
@@ -58,6 +63,8 @@ class Quote{
     }
 
     /**
+     * Add configurable product if simple supplied.
+     *
      * @param Subject $subject
      * @param Product $product
      * @param null $request
@@ -68,12 +75,12 @@ class Quote{
     public function beforeAddProduct(Subject $subject, Product $product, $request = null, $processMode = AbstractType::PROCESS_MODE_FULL){
         $parentId = $this->configurableProductInstance->getParentIdsByChild($product->getId());
 
-        /* Is a simple product with a configurable parent product */
+        /** Is a simple product with a configurable parent product */
         if(count($parentId)){
 
             $parent = $this->productRepository->getById($parentId[0]);
 
-            /* Retrieve all configurable attributes of parent product */
+            /** Retrieve all configurable attributes of parent product */
             $attributes = $parent->getTypeInstance(true)->getConfigurableAttributes($parent);
 
             $superAttribute = [];
@@ -84,12 +91,12 @@ class Quote{
                 $superAttribute[$attributeId] = $product->getData($attributeCode);
             }
 
-            /* Replace child simple product with configurable */
+            /** Replace child simple product with configurable */
             $this->registry->register(self::LAST_ADDED_PRODUCT_REGISTRY_KEY, $parent);
             $this->registry->register(self::ASSOCIATED_SIMPLE_PRODUCT, $product);
             $product = $parent;
 
-            /* Set necessary request data */
+            /** Set necessary request data */
             $request->setData("product", $parent->getId());
             $request->setData("super_attribute", $superAttribute);
         }
@@ -97,6 +104,8 @@ class Quote{
     }
 
     /**
+     * Add from_afbt value if added from afbt block.
+     *
      * @param Subject $subject
      * @param \Magento\Quote\Model\Quote\Item $quoteItem
      */

@@ -93,6 +93,11 @@ class PhpMl extends Action
         die;
     }
 
+    /**
+     * @param $source
+     * @param $destination
+     * @return int
+     */
     protected function getNumberOfWordMatch($source, $destination) {
         $words_to_count_source = strip_tags($source);
         $pattern = "/[^(\w|\d|\'|\"|\.|\!|\?|;|,|\\|\/|\-\-|:|\&|@)]+/";

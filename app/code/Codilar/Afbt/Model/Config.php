@@ -20,6 +20,7 @@ class Config
 
     /**
      * Config constructor.
+     *
      * @param ScopeConfigInterface $scopeConfig
      */
     public function __construct(
@@ -41,6 +42,8 @@ class Config
     }
 
     /**
+     * Get no. of combo products to show on frontend.
+     *
      * @return int
      */
     public function getNoOfCombos()
@@ -49,6 +52,8 @@ class Config
     }
 
     /**
+     * Check if module is enabled or not.
+     * 
      * @return int
      */
     public function isEnabled()

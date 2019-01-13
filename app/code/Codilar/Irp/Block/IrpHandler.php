@@ -31,6 +31,7 @@ class IrpHandler extends View
 
     /**
      * AfbtHandler constructor.
+     *
      * @param Context $context
      * @param EncoderInterface $urlEncoder
      * @param JsonEncoderInterface $jsonEncoder
@@ -64,6 +65,8 @@ class IrpHandler extends View
     }
 
     /**
+     * Check if module is enabled.
+     *
      * @return int
      */
     public function isEnabled()
@@ -72,6 +75,8 @@ class IrpHandler extends View
     }
 
     /**
+     * Get irp fetch url.
+     *
      * @return string
      */
     public function getFetchUrl()

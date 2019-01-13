@@ -20,6 +20,7 @@ class Config
 
     /**
      * Config constructor.
+     *
      * @param ScopeConfigInterface $scopeConfig
      */
     public function __construct(
@@ -41,6 +42,8 @@ class Config
     }
 
     /**
+     * Get no. of products to show in related products block.
+     *
      * @return int
      */
     public function getNoOfProducts()
@@ -49,6 +52,8 @@ class Config
     }
 
     /**
+     * Get module is enabled from config.
+     *
      * @return int
      */
     public function isEnabled()
@@ -57,6 +62,8 @@ class Config
     }
 
     /**
+     * Get allowed attributes from config.
+     *
      * @return string
      */
     public function getAllowedAttributes()

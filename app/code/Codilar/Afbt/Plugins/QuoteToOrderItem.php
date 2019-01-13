@@ -16,6 +16,7 @@ use Magento\Quote\Model\Quote\Item\ToOrderItem as Subject;
 class QuoteToOrderItem
 {
     /**
+     *
      * @param Subject $subject
      * @param callable $proceed
      * @param AbstractItem $item

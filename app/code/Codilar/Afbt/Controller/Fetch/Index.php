@@ -70,7 +70,7 @@ class Index extends Action
     }
 
     /**
-     * Execute action based on request and return result
+     * Fetch frequently bought together products from the afbt_index table.
      *
      * @return \Magento\Framework\Controller\ResultInterface|ResponseInterface
      */
@@ -124,6 +124,8 @@ class Index extends Action
     }
 
     /**
+     * Get product add to cart url.
+     *
      * @param \Magento\Catalog\Model\Product $product
      * @return string
      */

@@ -16,12 +16,16 @@ use Magento\Framework\Exception\NoSuchEntityException;
 interface AfbtIndexRepositoryInterface 
 {
     /**
+     * Save afbtIndex model.
+     *
      * @param AfbtIndexInterface $page
      * @return AfbtIndexInterface
      */
     public function save(AfbtIndexInterface $page);
 
     /**
+     * Get afbtIndex by specified id and field.
+     *
      * @param int $id
      * @param string|null $field
      * @return AfbtIndexInterface
@@ -30,24 +34,32 @@ interface AfbtIndexRepositoryInterface
     public function getById($id, $field);
 
     /**
+     * Get AfbtIndex list based on specified search criteria.
+     *
      * @param SearchCriteriaInterface $criteria
      * @return mixed
      */
     public function getList(SearchCriteriaInterface $criteria);
 
     /**
+     * Delete afbtIndex row.
+     *
      * @param AfbtIndexInterface $page
      * @return mixed
      */
     public function delete(AfbtIndexInterface $page);
 
     /**
+     * Delete AfbtIndex row based on specified id.
+     *
      * @param $id
      * @return mixed
      */
     public function deleteById($id);
 
     /**
+     * Get AfbtIndex Collection.
+     *
      * @return Collection
      */
     public function getCollection();

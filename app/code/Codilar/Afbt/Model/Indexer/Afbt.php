@@ -13,7 +13,6 @@ use Codilar\Afbt\Helper\Data;
 use Codilar\Afbt\Model\Config;
 use Magento\Framework\Indexer\ActionInterface;
 use Magento\Framework\Mview\ActionInterface as MViewActionInterface;
-use Magento\Quote\Model\Quote\Item;
 use Magento\Sales\Model\Order\Item as OrderItem;
 
 class Afbt implements ActionInterface, MViewActionInterface

@@ -44,6 +44,7 @@ class Data extends AbstractHelper
 
     /**
      * Data constructor.
+     *
      * @param Context $context
      * @param ProductCollectionFactory $productCollectionFactory
      * @param ProductFactory $productFactory
@@ -69,6 +70,8 @@ class Data extends AbstractHelper
     }
 
     /**
+     * Get product data collection.
+     *
      * @return ProductResource\Collection
      */
     public function getProductCollection()
@@ -77,6 +80,8 @@ class Data extends AbstractHelper
     }
 
     /**
+     * Get the product model for the specified product id.
+     *
      * @param $id
      * @return Product
      */
@@ -88,6 +93,8 @@ class Data extends AbstractHelper
     }
 
     /**
+     * Get the product image url for the specified product model.
+     *
      * @param Product $product
      * @param string $imageId
      * @return string
@@ -101,6 +108,8 @@ class Data extends AbstractHelper
     }
 
     /**
+     * Get the category model for the specified category id.
+     *
      * @param $categoryId
      * @return \Magento\Catalog\Api\Data\CategoryInterface|null
      */

@@ -20,6 +20,8 @@ class InstallSchema implements InstallSchemaInterface
 
 
     /**
+     * Add codilar_afbt_index table in db.
+     *
      * @param SchemaSetupInterface $setup
      * @param ModuleContextInterface $context
      * @throws \Zend_Db_Exception
@@ -82,6 +84,8 @@ class InstallSchema implements InstallSchemaInterface
     }
 
     /**
+     * Add table column if not exists.
+     *
      * @param SchemaSetupInterface $setup
      * @param string $table
      * @param string $columnName

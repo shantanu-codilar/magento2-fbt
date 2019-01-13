@@ -67,6 +67,7 @@ class Data extends AbstractHelper
 
     /**
      * Data constructor.
+     *
      * @param Context $context
      * @param QuoteItemCollectionFactory $quoteItemCollectionFactory
      * @param OrderItemCollectionFactory $orderItemCollectionFactory
@@ -104,6 +105,8 @@ class Data extends AbstractHelper
     }
 
     /**
+     * Get Quote Items collection factory.
+     *
      * @return \Magento\Quote\Model\ResourceModel\Quote\Item\Collection
      */
     public function getQuoteItemCollectionFactory()
@@ -112,6 +115,8 @@ class Data extends AbstractHelper
     }
 
     /**
+     * Get order items collection factory.
+     *
      * @return OrderItemCollection
      */
     public function getOrderItemCollectionFactory()
@@ -120,6 +125,8 @@ class Data extends AbstractHelper
     }
 
     /**
+     * Get product collection.
+     *
      * @return \Magento\Catalog\Model\ResourceModel\Product\Collection
      */
     public function getProductCollection()
@@ -128,6 +135,8 @@ class Data extends AbstractHelper
     }
 
     /**
+     * Sort and return array based on number of occurrences.
+     *
      * @param $unsortedArray
      * @return array
      */
@@ -146,6 +155,8 @@ class Data extends AbstractHelper
     }
 
     /**
+     * Create or update index table.
+     *
      * @param $productId
      * @param $associatedProducts
      * @return bool|int
@@ -170,6 +181,8 @@ class Data extends AbstractHelper
     }
 
     /**
+     * Get product model based on specified id.
+     *
      * @param $id
      * @return \Magento\Catalog\Model\Product
      */
@@ -181,6 +194,8 @@ class Data extends AbstractHelper
     }
 
     /**
+     * Get product image for specified product.
+     *
      * @param Product $product
      * @param string $imageId
      * @return string

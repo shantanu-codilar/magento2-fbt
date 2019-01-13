@@ -40,6 +40,11 @@ class ProductAttributes implements ArrayInterface
         $this->attributeManagement = $attributeManagement;
     }
 
+    /**
+     * Return the option array containing product data.
+     *
+     * @return array
+     */
     public function toOptionArray()
     {
         $options = [];
@@ -56,6 +61,11 @@ class ProductAttributes implements ArrayInterface
         return $options;
     }
 
+    /**
+     * Get attributes of the default attribute set.
+     *
+     * @return \Magento\Eav\Api\Data\AttributeInterface[]
+     */
     protected function getAttributes()
     {
         try {
@@ -65,11 +75,21 @@ class ProductAttributes implements ArrayInterface
         }
     }
 
+    /**
+     * Get the default product attribute set id.
+     *
+     * @return int
+     */
     protected function getDefaultAttributeSetId()
     {
         return $this->productFactory->create()->getDefaultAttributeSetId();
     }
 
+    /**
+     * Static array containing not required attribute codes.
+     *
+     * @return array
+     */
     protected function getNotRequiredAttributesArray()
     {
         return ["custom_design","custom_design_to", "image","price","sku_type","special_from_date","special_to_date","tax_class_id","sku", "price_type",'page_layout', 'custom_design_from', 'gift_message_available','media_gallery', 'custom_layout', 'tier_price', 'old_id', 'gallery', 'msrp',
@@ -78,6 +98,8 @@ class ProductAttributes implements ArrayInterface
     }
 
     /**
+     * Static array containing the required attribute codes.
+     *
      * @return array
      */
     protected function getRequiredArray()

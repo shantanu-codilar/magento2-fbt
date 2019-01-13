@@ -18,6 +18,7 @@ use Magento\Ui\DataProvider\Modifier\PoolInterface;
 
 class Report extends AbstractDataProvider
 {
+    /** @var mixed  */
     private $modifiersPool;
 
     /**

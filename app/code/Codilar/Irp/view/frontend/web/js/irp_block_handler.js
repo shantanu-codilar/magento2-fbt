@@ -1,3 +1,14 @@
+<!--
+/**
+ * Codilar_Irp extension
+ * NOTICE OF LICENSE
+ *
+ *
+ * @category  Codilar
+ * @package   Codilar_Afbt
+ * @copyright Copyright (c) 2019
+ */
+-->
 define(['jquery', 'underscore', 'owlCarousel'], function ($, _, owlCarousel) {
     return function (config) {
         var Irp = {

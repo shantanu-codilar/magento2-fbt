@@ -42,6 +42,7 @@ class Add extends Action
 
     /**
      * Add constructor.
+     *
      * @param Context $context
      * @param Cart $cart
      * @param \Magento\Framework\Data\Form\FormKey $formKey
@@ -68,6 +69,8 @@ class Add extends Action
 
 
     /**
+     * Get product ids and add to cart simultaneously.
+     *
      * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\Result\Json|\Magento\Framework\Controller\ResultInterface
      */
     public function execute()
