@@ -8,6 +8,12 @@
 var config = {
     'paths': {
         'afbtHandler': 'Codilar_Afbt/js/afbt_block_handler',
+        'owlCarousel': 'Codilar_Afbt/js/owl.carousel',
+    },
+    'shim': {
+        'owlCarousel': {
+            'deps': ['jquery']
+        }
     }
 };
 

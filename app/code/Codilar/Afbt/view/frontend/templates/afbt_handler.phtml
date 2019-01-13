@@ -5,7 +5,10 @@
 
 <?php if ($block->isEnabled()): ?>
     <div class="afbt-container">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/66/Loadingsome.gif" width="100" height="100" />
+        <div class="loader-block">
+            <img src="<?= /* @escapeNotVerified */ $block->getViewFileUrl('images/loader-1.gif') ?>"
+                 alt="<?= /* @escapeNotVerified */ __('Loading...') ?>">
+        </div>
     </div>
     <script type="text/x-magento-init">
         {
@@ -13,78 +16,297 @@
                 "afbtHandler": {
                     "afbtFetchUrl": "<?php echo $block->getFetchUrl() ?>",
                     "product_id": "<?php echo $block->getProduct()->getId() ?>",
-                    "addToCartUrl": "<?php echo $block->getCartAddUrl() ?>"
+                    "addToCartUrl": "<?php echo $block->getCartAddUrl() ?>",
+                    "form_key": "<?php echo $block->getFormKey() ?>"
                 }
             }
         }
     </script>
-    <style>
-        .fbt-container{
-            margin-bottom: 30px;
-            margin-top: 30px;
-        }
-        .block-container .product-name{
-            display: block;
-            display: -webkit-box;
-            max-width: 100%;
-            height: 39.2px;
-            margin: 10px auto 5px;
-            font-size: 14px;
-            line-height: 1.4;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .price-block .item-price{
-            margin-top: 1rem;
-            font-weight: 600;
-        }
-        .grant-total{
-            margin-top: 20px;
-        }
-        .grant-total .price{
-            font-size: 16px;
-            font-weight: 600;
-        }
-        .fbt-container .owl-item .column-item{
-            border-right: 1px solid #ccc;
-        }
-        .row-fbt:after{
-            display: table;
-            content: '';
-            clear: both;
-        }
-        .column-2{
-            width: 48%;
-            float: left;
-        }
-        .additional-product{
-            width: 4%;
-            float: left;
-            text-align: center;
-        }
-        .fbt-image-container{
-            display: block;
-            height: 0;
-            overflow: hidden;
-            position: relative;
-            z-index: 1;
-            padding-top: 125%
-        }
-        .fbt-image-container img{
-            bottom: 0;
-            display: block;
-            height: auto;
-            left: 0;
-            margin: auto;
-            max-width: 100%;
-            position: absolute;
-            right: 0;
-            top: 0;
-        }
-        .block-container .pad-block{
-            padding: 10px;
-        }
-    </style>
+
+
 <?php endif; ?>
+
+<div class="related-block">
+    <h2>Related Products</h2>
+    <div class="fbt-container">
+        <div class="row-fbt related-block-container owl-carousel owl-theme" id="related-carousel-blog">
+            <div class="column-item">
+                <div class="row-fbt container-flex-container">
+                    <div class="row-fbt block-container-flex">
+                        <div class="block-container">
+                            <div class="pad-block">
+                                <div class="fbt-image-container">
+                                    <a href="<%= productsData.parent_product.url %>" title="<%= productsData.parent_product.name %>">
+                                        <img src="http://127.0.0.1/magento2-fbt/pub/media/catalog/product/cache/207e23213cf636ccdef205098cf3c8a3/m/b/mb02-gray-0.jpg">
+                                    </a>
+                                </div>
+                                <a class="product-name" href="<%= productsData.parent_product.url %>" title="<%= productsData.parent_product.name %>">
+                                    Didi Sport Watch
+                                </a>
+                                <div class="price-block">
+                                   USD 1000
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column-item">
+                <div class="row-fbt container-flex-container">
+                    <div class="row-fbt block-container-flex">
+                        <div class="block-container">
+                            <div class="pad-block">
+                                <div class="fbt-image-container">
+                                    <a href="<%= productsData.parent_product.url %>" title="<%= productsData.parent_product.name %>">
+                                        <img src="http://127.0.0.1/magento2-fbt/pub/media/catalog/product/cache/207e23213cf636ccdef205098cf3c8a3/m/b/mb02-gray-0.jpg">
+                                    </a>
+                                </div>
+                                <a class="product-name" href="<%= productsData.parent_product.url %>" title="<%= productsData.parent_product.name %>">
+                                    Didi Sport Watch
+                                </a>
+                                <div class="price-block">
+                                    USD 1000
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column-item">
+                <div class="row-fbt container-flex-container">
+                    <div class="row-fbt block-container-flex">
+                        <div class="block-container">
+                            <div class="pad-block">
+                                <div class="fbt-image-container">
+                                    <a href="<%= productsData.parent_product.url %>" title="<%= productsData.parent_product.name %>">
+                                        <img src="http://127.0.0.1/magento2-fbt/pub/media/catalog/product/cache/207e23213cf636ccdef205098cf3c8a3/m/b/mb02-gray-0.jpg">
+                                    </a>
+                                </div>
+                                <a class="product-name" href="<%= productsData.parent_product.url %>" title="<%= productsData.parent_product.name %>">
+                                    Didi Sport Watch
+                                </a>
+                                <div class="price-block">
+                                    USD 1000
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column-item">
+                <div class="row-fbt container-flex-container">
+                    <div class="row-fbt block-container-flex">
+                        <div class="block-container">
+                            <div class="pad-block">
+                                <div class="fbt-image-container">
+                                    <a href="<%= productsData.parent_product.url %>" title="<%= productsData.parent_product.name %>">
+                                        <img src="http://127.0.0.1/magento2-fbt/pub/media/catalog/product/cache/207e23213cf636ccdef205098cf3c8a3/m/b/mb02-gray-0.jpg">
+                                    </a>
+                                </div>
+                                <a class="product-name" href="<%= productsData.parent_product.url %>" title="<%= productsData.parent_product.name %>">
+                                    Didi Sport Watch
+                                </a>
+                                <div class="price-block">
+                                    USD 1000
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column-item">
+                <div class="row-fbt container-flex-container">
+                    <div class="row-fbt block-container-flex">
+                        <div class="block-container">
+                            <div class="pad-block">
+                                <div class="fbt-image-container">
+                                    <a href="<%= productsData.parent_product.url %>" title="<%= productsData.parent_product.name %>">
+                                        <img src="http://127.0.0.1/magento2-fbt/pub/media/catalog/product/cache/207e23213cf636ccdef205098cf3c8a3/m/b/mb02-gray-0.jpg">
+                                    </a>
+                                </div>
+                                <a class="product-name" href="<%= productsData.parent_product.url %>" title="<%= productsData.parent_product.name %>">
+                                    Didi Sport Watch
+                                </a>
+                                <div class="price-block">
+                                    USD 1000
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column-item">
+                <div class="row-fbt container-flex-container">
+                    <div class="row-fbt block-container-flex">
+                        <div class="block-container">
+                            <div class="pad-block">
+                                <div class="fbt-image-container">
+                                    <a href="<%= productsData.parent_product.url %>" title="<%= productsData.parent_product.name %>">
+                                        <img src="http://127.0.0.1/magento2-fbt/pub/media/catalog/product/cache/207e23213cf636ccdef205098cf3c8a3/m/b/mb02-gray-0.jpg">
+                                    </a>
+                                </div>
+                                <a class="product-name" href="<%= productsData.parent_product.url %>" title="<%= productsData.parent_product.name %>">
+                                    Didi Sport Watch
+                                </a>
+                                <div class="price-block">
+                                    USD 1000
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column-item">
+                <div class="row-fbt container-flex-container">
+                    <div class="row-fbt block-container-flex">
+                        <div class="block-container">
+                            <div class="pad-block">
+                                <div class="fbt-image-container">
+                                    <a href="<%= productsData.parent_product.url %>" title="<%= productsData.parent_product.name %>">
+                                        <img src="http://127.0.0.1/magento2-fbt/pub/media/catalog/product/cache/207e23213cf636ccdef205098cf3c8a3/m/b/mb02-gray-0.jpg">
+                                    </a>
+                                </div>
+                                <a class="product-name" href="<%= productsData.parent_product.url %>" title="<%= productsData.parent_product.name %>">
+                                    Didi Sport Watch
+                                </a>
+                                <div class="price-block">
+                                    USD 1000
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column-item">
+                <div class="row-fbt container-flex-container">
+                    <div class="row-fbt block-container-flex">
+                        <div class="block-container">
+                            <div class="pad-block">
+                                <div class="fbt-image-container">
+                                    <a href="<%= productsData.parent_product.url %>" title="<%= productsData.parent_product.name %>">
+                                        <img src="http://127.0.0.1/magento2-fbt/pub/media/catalog/product/cache/207e23213cf636ccdef205098cf3c8a3/m/b/mb02-gray-0.jpg">
+                                    </a>
+                                </div>
+                                <a class="product-name" href="<%= productsData.parent_product.url %>" title="<%= productsData.parent_product.name %>">
+                                    Didi Sport Watch
+                                </a>
+                                <div class="price-block">
+                                    USD 1000
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column-item">
+                <div class="row-fbt container-flex-container">
+                    <div class="row-fbt block-container-flex">
+                        <div class="block-container">
+                            <div class="pad-block">
+                                <div class="fbt-image-container">
+                                    <a href="<%= productsData.parent_product.url %>" title="<%= productsData.parent_product.name %>">
+                                        <img src="http://127.0.0.1/magento2-fbt/pub/media/catalog/product/cache/207e23213cf636ccdef205098cf3c8a3/m/b/mb02-gray-0.jpg">
+                                    </a>
+                                </div>
+                                <a class="product-name" href="<%= productsData.parent_product.url %>" title="<%= productsData.parent_product.name %>">
+                                    Didi Sport Watch
+                                </a>
+                                <div class="price-block">
+                                    USD 1000
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column-item">
+                <div class="row-fbt container-flex-container">
+                    <div class="row-fbt block-container-flex">
+                        <div class="block-container">
+                            <div class="pad-block">
+                                <div class="fbt-image-container">
+                                    <a href="<%= productsData.parent_product.url %>" title="<%= productsData.parent_product.name %>">
+                                        <img src="http://127.0.0.1/magento2-fbt/pub/media/catalog/product/cache/207e23213cf636ccdef205098cf3c8a3/m/b/mb02-gray-0.jpg">
+                                    </a>
+                                </div>
+                                <a class="product-name" href="<%= productsData.parent_product.url %>" title="<%= productsData.parent_product.name %>">
+                                    Didi Sport Watch
+                                </a>
+                                <div class="price-block">
+                                    USD 1000
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column-item">
+                <div class="row-fbt container-flex-container">
+                    <div class="row-fbt block-container-flex">
+                        <div class="block-container">
+                            <div class="pad-block">
+                                <div class="fbt-image-container">
+                                    <a href="<%= productsData.parent_product.url %>" title="<%= productsData.parent_product.name %>">
+                                        <img src="http://127.0.0.1/magento2-fbt/pub/media/catalog/product/cache/207e23213cf636ccdef205098cf3c8a3/m/b/mb02-gray-0.jpg">
+                                    </a>
+                                </div>
+                                <a class="product-name" href="<%= productsData.parent_product.url %>" title="<%= productsData.parent_product.name %>">
+                                    Didi Sport Watch
+                                </a>
+                                <div class="price-block">
+                                    USD 1000
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .related-block-container .block-container{
+        width: 100%;
+    }
+</style>
+<script>
+    require(['jquery', 'owlCarousel'], function($, owlCarousel) {
+        var owl = $("#related-carousel-blog");
+        owl.owlCarousel({
+            loop: false,
+            nav: true,
+            margin: 15,
+            navText: ['<div class="left-arrow">', '<div class="right-arrow">'],
+            responsive: {
+                0: {
+                    items: 2,
+                    margin: 0
+                },
+                600: {
+                    items: 2,
+                    margin: 0
+                },
+                1000: {
+                    items: 5
+                }
+            }
+        });
+        checkClasses();
+        owl.on('translated.owl.carousel', function (event) {
+            checkClasses();
+        });
+
+        function checkClasses() {
+            var total = $('.fbt-container .owl-stage .owl-item.active').length;
+
+            $('.fbt-container .owl-stage .owl-item').removeClass('lastActiveItem');
+
+            $('.fbt-container .owl-stage .owl-item.active').each(function (index) {
+                if (index === total - 1 && total > 1) {
+                    // this is the last one
+                    $(this).addClass('lastActiveItem');
+                }
+            });
+        }
+    });
+</script>
