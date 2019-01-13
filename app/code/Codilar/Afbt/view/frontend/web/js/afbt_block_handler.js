@@ -43,7 +43,7 @@ define(['jquery', 'underscore', 'owlCarousel'], function ($, _, owlCarousel) {
                                     }
                                 });
                                 checkClasses();
-                                carousel.on('translated.owl.carousel', function(event) {
+                                owl.on('translated.owl.carousel', function(event) {
                                     checkClasses();
                                 });
 
