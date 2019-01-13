@@ -4,7 +4,7 @@
 ?>
 
 <?php if ($block->isEnabled()): ?>
-    <div class="afbt-container">
+    <div class="irp-container">
         <div class="loader-block">
             <img src="<?= /* @escapeNotVerified */ $block->getViewFileUrl('images/loader-1.gif') ?>"
                  alt="<?= /* @escapeNotVerified */ __('Loading...') ?>">
@@ -13,11 +13,9 @@
     <script type="text/x-magento-init">
         {
             "*": {
-                "afbtHandler": {
-                    "afbtFetchUrl": "<?php echo $block->getFetchUrl() ?>",
-                    "product_id": "<?php echo $block->getProduct()->getId() ?>",
-                    "addToCartUrl": "<?php echo $block->getCartAddUrl() ?>",
-                    "form_key": "<?php echo $block->getFormKey() ?>"
+                "irpHandler": {
+                    "irpFetchUrl": "<?php echo $block->getFetchUrl() ?>",
+                    "product_id": "<?php echo $block->getProduct()->getId() ?>"
                 }
             }
         }
@@ -25,3 +23,9 @@
 
 
 <?php endif; ?>
+
+<style>
+    .related-block-container .block-container{
+        width: 100%;
+    }
+</style>
